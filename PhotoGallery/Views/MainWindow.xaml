@@ -1,0 +1,19 @@
+﻿<Window x:Class="PhotoGallery.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhotoGallery"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="545" Width="800">
+    <Grid>
+        <Button Content="Next" FontSize="22" Margin="600,384,80,0" BorderBrush="#FFC53030" FontFamily="Consolas" Command="{Binding NextCommand}" Height="50"/>
+        <Image Name="ImageBox" Source="{Binding CurrentImage}" HorizontalAlignment="Left" Height="351" Margin="10,10,0,0" VerticalAlignment="Top" Width="770"/>
+        <Button x:Name="Previous" Content="Previous" FontSize="22" Margin="50,384,630,0" BorderBrush="#FFC53030" FontFamily="Consolas" Command="{Binding PreviousCommand}" Height="50"/>
+        <Button Content="Remove" HorizontalAlignment="Left" FontSize="22" Margin="434,384,0,0" Height="50" Width="120" Command="{Binding RemoveCommand}"/>
+        <Button Content="Add" HorizontalAlignment="Left" FontSize="22" Margin="232,384,0,0"  Height="50" Width="120" Command="{Binding AddCommand}"/>
+        <TextBox HorizontalAlignment="Left" Margin="246,388,0,0" TextWrapping="Wrap" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsTextBoxEnabled}" VerticalAlignment="Top" Width="294" Height="29"/>
+        <Button Content="save" HorizontalAlignment="Left" Margin="93,377,0,0" VerticalAlignment="Top" Height="41" Width="77" Command="{Binding SaveCommand}"/>
+
+    </Grid>
+</Window>
