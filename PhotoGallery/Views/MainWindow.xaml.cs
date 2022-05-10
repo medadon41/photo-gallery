@@ -32,9 +32,7 @@ namespace PhotoGallery
         public MainWindow(ObservableLinkedList<GalleryImage> images)
         {
             InitializeComponent();
-            //ImageBox.Source = images.First.Value;
             DataContext = new MainWindowViewModel(images);
-            //FileManager.SaveFile(images);
         }
 
     }

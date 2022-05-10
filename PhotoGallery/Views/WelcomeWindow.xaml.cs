@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using PhotoGallery.Models;
+using PhotoGallery.Services;
+using PhotoGallery.ViewModels;
 
 namespace PhotoGallery
 {
@@ -25,20 +27,7 @@ namespace PhotoGallery
         public WelcomeWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var images = FileManager.LoadFile();
-            MainWindow newWindow = new MainWindow(images);
-            newWindow.Show();
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            MainWindow newWindow = new MainWindow();
-            newWindow.Show();
+            DataContext = new WelcomeWindowViewModel();
         }
     }
 }

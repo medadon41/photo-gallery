@@ -6,14 +6,13 @@ using System.Windows.Media.Imaging;
 using PhotoGallery.Commands;
 using PhotoGallery.DataTypes;
 using PhotoGallery.Models;
+using PhotoGallery.Services;
 
 namespace PhotoGallery.ViewModels;
 
 public class MainWindowViewModel : INotifyPropertyChanged
 {
-    private ProgramFile openedFile;
-
-    private ObservableLinkedList<GalleryImage> _images;
+    public ObservableLinkedList<GalleryImage> Images;
 
     private LinkedListNode<GalleryImage>? _currentNode;
 
@@ -41,23 +40,16 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
     }
 
-    public MainWindowViewModel(ProgramFile file)
-    {
-        openedFile = file;
-        _images = file.Images;
-        _currentNode = _images.First;
-    }
-
     public MainWindowViewModel(ObservableLinkedList<GalleryImage> images)
     {
-        _images = images;
-        CurrentNode = _images.First;
+        Images = images;
+        CurrentNode = Images.First;
         CurrentImage = _currentNode?.Value.Image;
     }
 
     public MainWindowViewModel()
     {
-        _images = new ObservableLinkedList<GalleryImage>();
+        Images = new ObservableLinkedList<GalleryImage>();
         CurrentImage = null;
         _currentNode = null;
     }
@@ -76,32 +68,36 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     public void Next()
     {
-        CurrentNode = CurrentNode?.Next ?? _images.First;
+        CurrentNode = CurrentNode?.Next ?? Images.First;
     }
 
     public void Previous()
     {
-        CurrentNode = CurrentNode?.Previous ?? _images.Last;
+        CurrentNode = CurrentNode?.Previous ?? Images.Last;
     }
 
     public void RemoveCurrent()
     {
-        _images.Remove(CurrentNode);
+        Images.Remove(CurrentNode);
         Next();
     }
 
     public void Add()
     {
         var images = FileManager.LoadFiles();
-        foreach(GalleryImage image in images)
-            _images.AddLast(image);
 
-        CurrentNode = _images.Last;
+        if (images == null)
+            return;
+
+        foreach(GalleryImage image in images)
+            Images.AddLast(image);
+
+        CurrentNode = Images.Last;
     }
 
     public void Save()
     {
-        FileManager.SaveFile(_images);
+        FileManager.SaveFile(Images);
     }
 
     private bool _isTextBoxEnabled;
@@ -111,49 +107,46 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => _isTextBoxEnabled;
         set
         {
-            if (_isTextBoxEnabled == value)
-                return;
-
             _isTextBoxEnabled = value;
             OnPropertyChanged("IsTextBoxEnabled");
         }
     }
 
-    private NavigateCommand _nextCommand;
-    public NavigateCommand NextCommand
+    private Command _nextCommand;
+    public Command NextCommand
     {
         get
         {
             return _nextCommand ??
-                   (_nextCommand = new NavigateCommand(obj =>
+                   (_nextCommand = new Command(obj =>
                    {
                        this.Next();
                    },
-                       (obj) => _images.Count > 1));
+                       (obj) => Images.Count > 1));
         }
     }
 
-    private NavigateCommand _previousCommand;
-    public NavigateCommand PreviousCommand
+    private Command _previousCommand;
+    public Command PreviousCommand
     {
         get
         {
             return _previousCommand ??
-                   (_previousCommand = new NavigateCommand(obj =>
+                   (_previousCommand = new Command(obj =>
                    {
                        this.Previous();
                    },
-                       (obj) => _images.Count > 1));
+                       (obj) => Images.Count > 1));
         }
     }
 
-    private NavigateCommand _removeCommand;
-    public NavigateCommand RemoveCommand
+    private Command _removeCommand;
+    public Command RemoveCommand
     {
         get
         {
             return _removeCommand ??
-                   (_removeCommand = new NavigateCommand(obj =>
+                   (_removeCommand = new Command(obj =>
                    {
                        this.RemoveCurrent();
                    },
@@ -161,26 +154,26 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
     }
 
-    private NavigateCommand _addCommand;
-    public NavigateCommand AddCommand
+    private Command _addCommand;
+    public Command AddCommand
     {
         get
         {
             return _addCommand ??
-                   (_addCommand = new NavigateCommand(obj =>
+                   (_addCommand = new Command(obj =>
                    {
                        this.Add();
                    }));
         }
     }
 
-    private NavigateCommand _saveCommand;
-    public NavigateCommand SaveCommand
+    private Command _saveCommand;
+    public Command SaveCommand
     {
         get
         {
             return _saveCommand ??
-                   (_saveCommand = new NavigateCommand(obj =>
+                   (_saveCommand = new Command(obj =>
                    {
                        this.Save();
                    }));

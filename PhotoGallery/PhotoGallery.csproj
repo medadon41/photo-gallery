@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="DataTypes\" />
+    <Folder Include="Resources\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 

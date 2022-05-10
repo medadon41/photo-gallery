@@ -9,17 +9,22 @@ using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 using Microsoft.Win32;
 using PhotoGallery.DataTypes;
+using PhotoGallery.Models;
 
-namespace PhotoGallery.Models;
+namespace PhotoGallery.Services;
 
 public static class FileManager
 {
+    public static string LastFileName;
     public static ObservableLinkedList<GalleryImage>? LoadFiles()
     {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Multiselect = true;
-        openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
-        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        OpenFileDialog openFileDialog = new OpenFileDialog
+        {
+            Multiselect = true,
+            Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*",
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        };
+
         if (openFileDialog.ShowDialog() == true)
         {
             ObservableLinkedList<GalleryImage> result = new ObservableLinkedList<GalleryImage>();
@@ -31,6 +36,7 @@ public static class FileManager
                     Description = fileName
                 });
             }
+            LastFileName = openFileDialog.FileName;
             return result;
         }
 
@@ -39,10 +45,13 @@ public static class FileManager
 
     public static ObservableLinkedList<GalleryImage>? LoadFile()
     {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Multiselect = true;
-        openFileDialog.Filter = "XML Files (*.xml*)|*.xml*";
-        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        OpenFileDialog openFileDialog = new OpenFileDialog
+        {
+            Multiselect = true,
+            Filter = "XML Files (*.xml*)|*.xml*",
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        };
+
         if (openFileDialog.ShowDialog() == true)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<ByteGalleryImage>));
@@ -56,19 +65,22 @@ public static class FileManager
 
             foreach (var byteImage in des)
             {
-                result.AddLast(toGalleryImage(byteImage));
+                result.AddLast(ToGalleryImage(byteImage));
             }
 
+            LastFileName = openFileDialog.FileName;
             return result;
         }
 
         return null;
     }
 
-    public static void SaveFile(ObservableLinkedList<GalleryImage> images)
+    public static void SaveFileAs(ObservableLinkedList<GalleryImage> images)
     {
-        SaveFileDialog saveFileDialog = new SaveFileDialog();
-        saveFileDialog.Filter = "XML Files (*.xml)|*.xml";
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "XML Files (*.xml)|*.xml"
+        };
 
         if (saveFileDialog.ShowDialog() == true)
         {
@@ -82,6 +94,18 @@ public static class FileManager
             using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.OpenOrCreate))
                 formatter.Serialize(fs, result);
         }
+    }
+
+    public static void SaveFile(ObservableLinkedList<GalleryImage> images)
+    {
+        List<ByteGalleryImage> result = new List<ByteGalleryImage>();
+
+        foreach (GalleryImage image in images)
+            result.Add(ToByteArray(image));
+
+        XmlSerializer formatter = new XmlSerializer(typeof(List<ByteGalleryImage>));
+        using (FileStream fs = new FileStream(LastFileName, FileMode.OpenOrCreate))
+            formatter.Serialize(fs, result);
     }
 
     private static ByteGalleryImage ToByteArray(GalleryImage image)
@@ -101,7 +125,7 @@ public static class FileManager
         }
     }
 
-    private static GalleryImage toGalleryImage(ByteGalleryImage byteImage)
+    private static GalleryImage ToGalleryImage(ByteGalleryImage byteImage)
     {
         using (MemoryStream ms = new MemoryStream(byteImage.Image))
         {

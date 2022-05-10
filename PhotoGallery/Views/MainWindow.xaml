@@ -13,7 +13,7 @@
         <Button Content="Remove" HorizontalAlignment="Left" FontSize="22" Margin="434,384,0,0" Height="50" Width="120" Command="{Binding RemoveCommand}"/>
         <Button Content="Add" HorizontalAlignment="Left" FontSize="22" Margin="232,384,0,0"  Height="50" Width="120" Command="{Binding AddCommand}"/>
         <TextBox HorizontalAlignment="Left" Margin="246,388,0,0" TextWrapping="Wrap" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsTextBoxEnabled}" VerticalAlignment="Top" Width="294" Height="29"/>
-        <Button Content="save" HorizontalAlignment="Left" Margin="93,377,0,0" VerticalAlignment="Top" Height="41" Width="77" Command="{Binding SaveCommand}"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="93,377,0,0" VerticalAlignment="Top" Height="41" Width="77" Command="{Binding SaveCommand}"/>
 
     </Grid>
 </Window>
