@@ -35,7 +35,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => CurrentNode?.Value.Description;
         set
         {
-            CurrentNode.Value.Description = value;
+            if (CurrentNode != null) CurrentNode.Value.Description = value;
             OnPropertyChanged("Description");
         }
     }
@@ -98,6 +98,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
     public void Save()
     {
         FileManager.SaveFile(Images);
+    }
+
+    public void SaveAs()
+    {
+        FileManager.SaveFileAs(Images);
     }
 
     private bool _isTextBoxEnabled;
@@ -176,6 +181,19 @@ public class MainWindowViewModel : INotifyPropertyChanged
                    (_saveCommand = new Command(obj =>
                    {
                        this.Save();
+                   }));
+        }
+    }
+
+    private Command _saveAsCommand;
+    public Command SaveAsCommand
+    {
+        get
+        {
+            return _saveAsCommand ??
+                   (_saveAsCommand = new Command(obj =>
+                   {
+                       this.SaveAs();
                    }));
         }
     }

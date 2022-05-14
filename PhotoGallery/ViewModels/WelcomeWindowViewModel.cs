@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using PhotoGallery.Commands;
 using PhotoGallery.Services;
 
@@ -17,6 +18,7 @@ public class WelcomeWindowViewModel
         {
             Open();
         });
+
     }
 
     private Command _createCommand;
@@ -34,6 +36,7 @@ public class WelcomeWindowViewModel
         {
             MainWindow newWindow = new MainWindow(images);
             newWindow.Show();
+            CloseWindow();
         }
     }
 
@@ -41,5 +44,14 @@ public class WelcomeWindowViewModel
     {
         MainWindow newWindow = new MainWindow();
         newWindow.Show();
+        CloseWindow();
+    }
+
+    private void CloseWindow()
+    {
+        foreach (Window item in Application.Current.Windows)
+        {
+            if (item.DataContext == this) item.Close();
+        }
     }
 }

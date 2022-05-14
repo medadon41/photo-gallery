@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "NxxqII8HaeGtETWZ2Hw6wAUGZPikDSXByXPdm9IxmTZNHYBLn2vCK9FD/B26c+H8QAgdPDIAZ19SI77fYm3x7A==",
+  "dgSpecHash": "NHNTTx4POq/Pn1MtNz00Sf2212oPyb0uiabNiskDSbmI7y87k4wnFZY9ehs30kLWkdrRkx4y52wFszmBk3kIqg==",
   "success": true,
   "projectFilePath": "C:\\Users\\mddn\\source\\repos\\photo-gallery\\PhotoGallery\\PhotoGallery.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\mddn\\.nuget\\packages\\adonisui\\1.17.1\\adonisui.1.17.1.nupkg.sha512",
+    "C:\\Users\\mddn\\.nuget\\packages\\adonisui.classictheme\\1.17.1\\adonisui.classictheme.1.17.1.nupkg.sha512",
+    "C:\\Users\\mddn\\.nuget\\packages\\microsoft.netcore.platforms\\3.0.0\\microsoft.netcore.platforms.3.0.0.nupkg.sha512",
+    "C:\\Users\\mddn\\.nuget\\packages\\microsoft.win32.systemevents\\4.6.0\\microsoft.win32.systemevents.4.6.0.nupkg.sha512",
+    "C:\\Users\\mddn\\.nuget\\packages\\system.drawing.common\\4.6.0\\system.drawing.common.4.6.0.nupkg.sha512"
+  ],
   "logs": []
 }

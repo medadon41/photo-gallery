@@ -8,9 +8,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\arrow-left.png" />
+    <None Remove="Resources\arrow-right.png" />
+    <None Remove="Resources\images.png" />
+    <None Remove="Resources\journal-plus.png" />
+    <None Remove="Resources\logo.ico" />
+    <None Remove="Resources\logo_large.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="DataTypes\" />
-    <Folder Include="Resources\" />
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AdonisUI" Version="1.17.1" />
+    <PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\arrow-left.png" />
+    <Resource Include="Resources\arrow-right.png" />
+    <Resource Include="Resources\images.png" />
+    <Resource Include="Resources\journal-plus.png" />
+    <Resource Include="Resources\logo.ico" />
+    <Resource Include="Resources\logo_large.png" />
   </ItemGroup>
 
 </Project>

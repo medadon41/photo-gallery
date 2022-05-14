@@ -44,3 +44,7 @@ C:\Users\mddn\source\repos\photo-gallery\PhotoGallery\obj\Debug\net6.0-windows\r
 C:\Users\mddn\source\repos\photo-gallery\PhotoGallery\obj\Debug\net6.0-windows\PhotoGallery.pdb
 C:\Users\mddn\source\repos\photo-gallery\PhotoGallery\obj\Debug\net6.0-windows\PhotoGallery.genruntimeconfig.cache
 C:\Users\mddn\source\repos\photo-gallery\PhotoGallery\obj\Debug\net6.0-windows\ref\PhotoGallery.dll
+C:\Users\mddn\source\repos\photo-gallery\PhotoGallery\obj\Debug\net6.0-windows\App.baml
+C:\Users\mddn\source\repos\photo-gallery\PhotoGallery\obj\Debug\net6.0-windows\PhotoGallery.csproj.CopyComplete
+C:\Users\mddn\source\repos\photo-gallery\PhotoGallery\bin\Debug\net6.0-windows\AdonisUI.dll
+C:\Users\mddn\source\repos\photo-gallery\PhotoGallery\bin\Debug\net6.0-windows\AdonisUI.ClassicTheme.dll
